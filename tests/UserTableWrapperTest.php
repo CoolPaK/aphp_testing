@@ -103,12 +103,12 @@ class UserTableWrapperTest extends TestCase
             'delete existing' => [
                 1,
                 [['id' => 1, 'name' => 'John'], ['id' => 2, 'name' => 'Jane']],
-                [1 => ['id' => 2, 'name' => 'Jane']]
+                [0 => ['id' => 2, 'name' => 'Jane']] // Изменено с [1 => ...] на [0 => ...]
             ],
             'delete non-existing' => [
                 3,
                 [['id' => 1, 'name' => 'John']],
-                [['id' => 1, 'name' => 'John']]
+                [0 => ['id' => 1, 'name' => 'John']] // Добавлен явный индекс 0
             ]
         ];
     }
@@ -117,6 +117,6 @@ class UserTableWrapperTest extends TestCase
     {
         $this->assertSame([], $this->table->get());
         $this->table->insert(['id' => 1, 'name' => 'John']);
-        $this->assertSame([['id' => 1, 'name' => 'John']], $this->table->get());
+        $this->assertSame([0 => ['id' => 1, 'name' => 'John']], $this->table->get());
     }
 }
